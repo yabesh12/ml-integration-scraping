@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quotes Visualization</title>
+
+    <!-- Include Plotly CDN -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h1>Top Authors with Most Quotes</h1>
+    <div id="visualization"></div>
+
+    <script>
+        // Authors and counts passed from Python
+        var authors = {{ authors | tojson | safe }};
+        var counts = {{ counts | tojson | safe }};
+
+        // Create a bar chart using Plotly
+        var data = [{
+            type: 'bar',
+            x: authors,
+            y: counts,
+            marker: {
+                color: 'skyblue'
+            }
+        }];
+
+        var layout = {
+            title: 'Top Authors with Most Quotes',
+            xaxis: { title: 'Authors' },
+            yaxis: { title: 'Number of Quotes' }
+        };
+
+        Plotly.newPlot('visualization', data, layout);
+    </script>
+</body>
+</html>
